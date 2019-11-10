@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JS 原型链详解 | 看看你踩进了什么</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="个人博客,D橙的小水洼" />
+  
+  <meta name="description" content="关于JS原型链的理解原型:每一个对象（除null外）都有另一个对象与之相关联，这个另一个对象便称之为“原型”(prototype),每个对象都是从原型继承属性。 原型链:一系列链接的原型对象的链称为“原型链”(prototype chain)。对象通过原型链的方式实现了相关联（即我们常称作原型链的方式实现了继承） 对象实例化方式原始模式123456var Car = &amp;#123;    colo">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 原型链详解">
+<meta property="og:url" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;2019&#x2F;05&#x2F;29&#x2F;JS%20%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%AF%A6%E8%A7%A3&#x2F;index.html">
+<meta property="og:site_name" content="看看你踩进了什么">
+<meta property="og:description" content="关于JS原型链的理解原型:每一个对象（除null外）都有另一个对象与之相关联，这个另一个对象便称之为“原型”(prototype),每个对象都是从原型继承属性。 原型链:一系列链接的原型对象的链称为“原型链”(prototype chain)。对象通过原型链的方式实现了相关联（即我们常称作原型链的方式实现了继承） 对象实例化方式原始模式123456var Car = &amp;#123;    colo">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;JS-Prototype-chain2.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;JS-Prototype-chain.jpg">
+<meta property="og:updated_time" content="2019-10-13T14:35:59.890Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;JS-Prototype-chain2.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">D橙的小水洼</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>档案</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        D橙的小水洼
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        出于崖涘 观于大海
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="home"  href="/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LDC5886">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-JS 原型链详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      JS 原型链详解
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/used/">used</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-05-29
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p><img src="/images/JS-Prototype-chain2.jpg" alt="JS-Prototype-chain"></p>
+<h2 id="关于JS原型链的理解"><a href="#关于JS原型链的理解" class="headerlink" title="关于JS原型链的理解"></a>关于JS原型链的理解</h2><p>原型:每一个对象（除null外）都有另一个对象与之相关联，这个另一个对象便称之为“原型”(prototype),每个对象都是从原型继承属性。</p>
+<p>原型链:一系列链接的原型对象的链称为“原型链”(prototype chain)。对象通过原型链的方式实现了相关联（即我们常称作原型链的方式实现了继承）</p>
+<h3 id="对象实例化方式"><a href="#对象实例化方式" class="headerlink" title="对象实例化方式"></a>对象实例化方式</h3><h4 id="原始模式"><a href="#原始模式" class="headerlink" title="原始模式"></a>原始模式</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Car = &#123;</span><br><span class="line">    color: <span class="string">'red'</span>,         <span class="comment">//车的颜色</span></span><br><span class="line">   wheel: <span class="number">4</span>,           <span class="comment">//车轮数量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(Car.color);<span class="comment">//red</span></span><br></pre></td></tr></table></figure>
+<p>生成两个实例对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Car = &#123;</span><br><span class="line">    color: <span class="string">'red'</span>,</span><br><span class="line">    wheel: <span class="number">4</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Car2 = &#123;</span><br><span class="line">    color: <span class="string">'blue'</span>,</span><br><span class="line">    wheel: <span class="number">4</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">`js</span></span><br><span class="line"><span class="string">这样的写法有两个缺点，一是如果多生成几个（100个！）实例，写起来就非常麻烦；二是实例与原型之间，没有任何办法，可以看出有什么联系。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#### 原始模式的改进</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">我们可以写一个函数，解决代码重复的问题。</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>js</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCar</span>(<span class="params">color,wheel</span>) </span>&#123;</span><br><span class="line">　　　　<span class="keyword">return</span> &#123;</span><br><span class="line">　　　　　　color:color,</span><br><span class="line">　　　　　　wheel:wheel</span><br><span class="line">　　　　&#125;</span><br><span class="line">　　&#125;</span><br><span class="line"><span class="comment">//然后生成实例对象，就等于是在调用函数：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> cat1 = createCar(<span class="string">"红色"</span>,<span class="string">"4"</span>);</span><br><span class="line"><span class="keyword">var</span> cat2 = createCar(<span class="string">"蓝色"</span>,<span class="string">"4"</span>);</span><br><span class="line"></span><br><span class="line">alert(cat1.color);                <span class="comment">//红色</span></span><br></pre></td></tr></table></figure>
+<h4 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function createCar(color,wheel)&#123;   //createCar工厂</span><br><span class="line">    var obj = new Object;         //或obj = &#123;&#125; 原材料阶段</span><br><span class="line">     obj.color = color;           //加工</span><br><span class="line">     obj.wheel = wheel;          //加工</span><br><span class="line">     return obj;                 //输出产品</span><br><span class="line">&#125;</span><br><span class="line">//实例化</span><br><span class="line">var cat1 = createCar(&quot;红色&quot;,&quot;4&quot;);</span><br><span class="line">var cat2 = createCar(&quot;蓝色&quot;,&quot;4&quot;);</span><br><span class="line"></span><br><span class="line">alert(cat1.color);//红色</span><br></pre></td></tr></table></figure>
+<h4 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h4><p>为了解决从原型对象生成实例的问题，Javascript提供了一个构造函数（Constructor）模式。<br>所谓”构造函数”，其实就是一个普通函数，但是内部使用了<code>this</code>变量。对构造函数使用<code>new</code>运算符，就能生成实例，并且<code>this</code>变量会绑定在实例对象上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function CreateCar(color,wheel)&#123;//构造函数首字母大写</span><br><span class="line">    //不需要自己创建对象了</span><br><span class="line">     this.color = color;//添加属性，this指向构造函数的实例对象(cat1、cat2)</span><br><span class="line">     this.wheel = wheel;//添加属性</span><br><span class="line"></span><br><span class="line">    //不需要自己return了</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实例化</span><br><span class="line">var cat1 = new CreateCar(&quot;红色&quot;,&quot;4&quot;);</span><br><span class="line">var cat2 = new CreateCar(&quot;蓝色&quot;,&quot;4&quot;);</span><br><span class="line">alert(cat1.color);                       //红色</span><br></pre></td></tr></table></figure>
+<p>首先定义一个构造函数<code>CreateCar</code>，然后对这个构造函数实例化了两个对象<code>cat1</code>和<code>cat2</code>。( <code>CreateCar</code>称为<code>cat1</code>和<code>cat2</code>的原型对象（简称原型）， <code>cat1</code>，<code>cat2</code>称为<code>CreateCar</code>的实例对象)实例可以访问原型对象上定义的属性和方法</p>
+<p>*<code>new</code> 函数构造内部变化：</p>
+<p>自动生成一个对象<br><code>this</code>指向这个对象<br>函数自动返回这个对象*</p>
+<p><strong>构造函数注意事项</strong></p>
+<p>此时<code>CreateCar</code>称之为构造函数，也可以称之类，构造函数就是类</p>
+<p>CreateCar 构造函数中<code>this</code>指向<code>CreateCar</code>实例对象即 <code>new CreateCar( )</code>出来的对象<code>cat1</code>和<code>cat2</code></p>
+<p>必须带new</p>
+<p>构造函数首字母大写，这是规范，官方都遵循这一个规范，如<code>Number()</code> <code>Array()</code></p>
+<h4 id="理解-constructor，protototype，proto-属性"><a href="#理解-constructor，protototype，proto-属性" class="headerlink" title="理解 constructor，protototype，proto 属性"></a>理解 constructor，protototype，<strong>proto</strong> 属性</h4><p>每个构造函数都有一个<code>prototype</code>属性，这个属性是一个指针,指向一个<code>prototype对象</code>，而这个<code>prototype对象</code>中保存着构造函数的<code>原型属性</code>和一个<code>constructor</code>属性，该<code>constructor</code>属性,这个属性也是一个指针,指向了构造函数<code>CreateCar</code>本身.</p>
+<p>实例是通过构造函数创建的。无prototype属性，但实例一创造出来就具有<code>constructor</code>属性（指向构造函数）和<code>proto</code>属性（指向该实例的原型对象）</p>
+<p>cat1和cat2会自动含有一个constructor属性，指向它们的构造函数,即<code>CreateCar</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function CreateCar(color,wheel)&#123;        //构造函数首字母大写</span><br><span class="line"> //不需要自己创建对象了</span><br><span class="line"></span><br><span class="line">     this.color = color;         //添加属性，this指向构造函数的实例对象(cat1、cat2)</span><br><span class="line">     this.wheel = wheel;            //添加属性</span><br><span class="line"></span><br><span class="line">    //不需要自己return了</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实例化</span><br><span class="line">var cat1 = new CreateCar(&quot;红色&quot;,&quot;4&quot;);</span><br><span class="line">var cat2 = new CreateCar(&quot;蓝色&quot;,&quot;4&quot;);</span><br><span class="line">alert(cat1.color);                       //红色</span><br><span class="line"></span><br><span class="line">alert(cat1.constructor == CreateCar);    //true</span><br><span class="line">alert(cat2.constructor == CreateCar);    //true</span><br></pre></td></tr></table></figure>
+<p>以<code>CreateCar</code>和<code>cat1</code>为例，其属性结构关系如下图所示</p>
+<p><img src="/images/JS-Prototype-chain.jpg" alt="JS-Prototype-chain"></p>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><h4 id="什么是原型链"><a href="#什么是原型链" class="headerlink" title="什么是原型链"></a>什么是原型链</h4><p>简单来说就是函数原型通过继承关系联系在一起，形成的链式结构就被叫做原型链。简单来说就是在实现原型继承的时候，会将下级函数的原型和上级函数的实例联系起来，那么多个构造函数相互继承，将彼此的原型联系起来就形成了原型链。</p>
+<p>实际上所有函数都有自己的原型对象；因为函数在广义上可以认为是对象</p>
+<p>对象能作为其他对象的原型对象，也能作为原型对象的实例化对象，由此形成了prototype chain原型链</p>
+<p>所有的对象的原型对象如果一层层往上“回溯”，最后可以回溯到<code>Object.prototype</code>;而<code>Object.prototype</code>的原型对象是<code>null</code>,<code>null</code>没有自己的原型对象!!!</p>
+<h4 id="在面向对象原型链中常见的函数"><a href="#在面向对象原型链中常见的函数" class="headerlink" title="在面向对象原型链中常见的函数"></a>在面向对象原型链中常见的函数</h4><p>1.hasOwnProperty()<br>判断一个属性是否是自有属性，还是继承原型属性。必须用字符串指定该属性。如果是的话返回true，否则的返回false</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. function fn(index)&#123;</span><br><span class="line">2.      this.index = index;</span><br><span class="line">3.  &#125;</span><br><span class="line">4.  fn.prototype.name = &apos;二狗&apos;;</span><br><span class="line">5.  var obj = new fn(88);</span><br><span class="line">6.  console.log( obj.hasOwnProperty(&apos;index&apos;) );//true</span><br><span class="line">7.  console.log( obj.hasOwnProperty(&apos;name&apos;) );//false</span><br></pre></td></tr></table></figure>
+<p>2.isPrototypeOf()<br>判断该对象的原型是否为xxxxx。 返回true 或 false<br><code>Obj.constructor.prototype.isPrototypeOf(Obj) //true</code></p>
+<h4 id="原型链中对象属性的查找规则"><a href="#原型链中对象属性的查找规则" class="headerlink" title="原型链中对象属性的查找规则"></a>原型链中对象属性的查找规则</h4><p>读取对象的某个属性时，js引擎会先在对象本身属性上寻找，如果找不到，那么去其<strong>原型对象的<code>prototype</code>上</strong>找(不会查找其原型对象的内部属性！！)，如果没有的话就会沿着原型链向上查找，一层一层往上”回溯”,直至null.找到的话就返回属性值，如果都没有的话就会返回undefined。所以如果找寻某个不存在的属性，会将完整的原型链遍历一变，对性能影响较大。</p>
+<p>举个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> //原型链中属性的查找</span><br><span class="line"> 		function Person(name,color)&#123;</span><br><span class="line"> 			this.name=name;</span><br><span class="line"> 			this.color=color;</span><br><span class="line"> 		&#125;</span><br><span class="line"> 		function Teacher(name,age)&#123;</span><br><span class="line">Teacher.color = &quot;红色&quot;;</span><br><span class="line"> 			this.name=name;</span><br><span class="line"> 			this.age=age;</span><br><span class="line"> 		&#125;</span><br><span class="line"> 		//实现继承</span><br><span class="line"> 		Teacher.prototype=new Person();</span><br><span class="line"> 		Teacher.prototype.book=&quot;书本&quot;;</span><br><span class="line"> 		var t1=new Teacher(&quot;aa&quot;,32);</span><br><span class="line"></span><br><span class="line"> 		//查找属性</span><br><span class="line"> 		//1.当Teacher中含有name属性，不管有没有赋值都表明在Teacher中含有name属性</span><br><span class="line"> 		console.log(t1.name);    //aa</span><br><span class="line"></span><br><span class="line">         //2.当查找Teacher中没有的属性的时候,但是Teacher的原型中有该属性</span><br><span class="line"> 		console.log(t1.book);    //书本</span><br><span class="line"></span><br><span class="line"> 		//3.当查找Teacher原型和本身都没有属性的时候，但是上级函数中有该属性的时候</span><br><span class="line"> 		console.log(t1.color);   //undefined</span><br></pre></td></tr></table></figure>
+<p>以上的三种情况就是一个很明显的利用原型链查找属性的例子，可以写个demo简单实验一下，只要测试过之后肯定能够很清晰的理解啦。</p>
+<h4 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h4><p>利用<code>call()</code>及<code>for in</code> 继承,如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.function inherit()&#123;</span><br><span class="line">2.</span><br><span class="line">3.            fn.call(obj3,&apos;旺财&apos;);</span><br><span class="line">4.            for(key  in  fn.prototype)&#123;</span><br><span class="line">5.                if(!obj3[key])&#123;</span><br><span class="line">6.                    obj3[key] = fn.prototype[key];</span><br><span class="line">7.                &#125;</span><br><span class="line">8.</span><br><span class="line">9.            &#125;</span><br><span class="line">10.       &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.function inherit(constructor,obj,ownAttr)&#123;</span><br><span class="line">2.        constructor.call(obj3,ownAttr);</span><br><span class="line">3.        for(key  in  constructor.prototype)&#123;</span><br><span class="line">4.            if(!obj[key])&#123;</span><br><span class="line">5.                obj[key] =constructor.prototype[key];</span><br><span class="line">6.            &#125;</span><br><span class="line">7.</span><br><span class="line">8.   &#125;</span><br><span class="line">9.</span><br><span class="line">10.</span><br><span class="line">11.&#125;</span><br></pre></td></tr></table></figure>
+<p>构造函数实例方式继承</p>
+<p>1.利用obj.constructor.prototype 继承对象 自身属性及 继承属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1. function fn(name)&#123;</span><br><span class="line">2.  this.name = name;</span><br><span class="line">3.  &#125;</span><br><span class="line">4.  fn.prototype.index = &apos;88&apos;;</span><br><span class="line">5.  function fn2(age)&#123;</span><br><span class="line">6.      this.age = age;</span><br><span class="line">7.  &#125;</span><br><span class="line">8.  fn2.prototype  = new fn(&apos;旺财&apos;);</span><br><span class="line">9.  var obj = new fn2(66);</span><br><span class="line">10.  console.log(obj.name);//旺财</span><br><span class="line">11.  console.log(obj.index);//88</span><br><span class="line">12.   console.log(obj.age);//88</span><br></pre></td></tr></table></figure>
+<p>2.利用 prototype 继承对象 自身属性及 继承属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1. function fn(name)&#123;</span><br><span class="line">2.     this.name = name;</span><br><span class="line">3. &#125;</span><br><span class="line">4. fn.prototype.index = &apos;88&apos;;</span><br><span class="line">5. </span><br><span class="line">5. function fn2(age)&#123;</span><br><span class="line">6.      this.age = age;</span><br><span class="line">7.  &#125;</span><br><span class="line">8.  </span><br><span class="line">8. var obj = new fn(&apos;二狗&apos;);</span><br><span class="line">9. fn.prototype  = Object.create(fn.prototype);</span><br><span class="line">10. console.log(obj.name);//二狗</span><br><span class="line">11. console.log(obj.index);//88</span><br></pre></td></tr></table></figure>
+<p>在上面例子中 可以发现,给对象的constructor.prototype添加方法属性 对象就会继承 </p>
+<p>obj.constructor.prototype 与 对象obj.<strong>proto</strong> 的关系 ,带__为非标准属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.function fn(name)&#123;</span><br><span class="line">2.     this.name = name;</span><br><span class="line">3. &#125;</span><br><span class="line">4.var obj = new fn(&apos;二狗&apos;);</span><br><span class="line">5. console.log( obj.__proto__ === fn.prototype ) //true，</span><br></pre></td></tr></table></figure>
+<p>3.一个对象继承其他对象</p>
+<p>对象继承对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.var obj = &#123;name : &apos;hello&apos;&#125;</span><br><span class="line">2.var  obj2 = &#123;age:30&#125;</span><br><span class="line">3.obj2.__proto__ = obj;</span><br><span class="line">4.console.log( obj2.name);//hello</span><br></pre></td></tr></table></figure>
+<p>继承构造函数实例对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.function fn(name)&#123;</span><br><span class="line">2.        this.name = name;</span><br><span class="line">3.    &#125;</span><br><span class="line">4.    var obj = new fn(&apos;hello&apos;);</span><br><span class="line">5.    var obj2 = &#123;</span><br><span class="line">6.        age:30,</span><br><span class="line">7.        __proto__:obj</span><br><span class="line">8.    &#125;</span><br><span class="line">9.    console.log(obj2.name);//hello;</span><br></pre></td></tr></table></figure>
+<h3 id="进阶理解"><a href="#进阶理解" class="headerlink" title="进阶理解"></a>进阶理解</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="noopener">MDN原型链</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月13日 22:35</p>
+        <p>原始链接： <a class="post-url" href="/2019/05/29/JS%20%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%AF%A6%E8%A7%A3/" title="JS 原型链详解">http://ldc5886.github.io/2019/05/29/JS%20%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%AF%A6%E8%A7%A3/</a></p>
+        <footer>
+            <a href="http://ldc5886.github.io">
+                <img src="/images/logo.png" alt="DC">
+                DC
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" target="_blank" rel="noopener">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" target="_blank" rel="noopener" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldc5886.github.io/2019/05/29/JS%20%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%AF%A6%E8%A7%A3/&title=《JS 原型链详解》 — 看看你踩进了什么&pic=https://ldc5886.github.io/images/JS-Prototype-chain2.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" target="_blank" rel="noopener" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldc5886.github.io/2019/05/29/JS%20%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%AF%A6%E8%A7%A3/&title=《JS 原型链详解》 — 看看你踩进了什么&source=个人博客，DC的小水洼" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldc5886.github.io/2019/05/29/JS%20%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%AF%A6%E8%A7%A3/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JS 原型链详解》 — 看看你踩进了什么&url=http://ldc5886.github.io/2019/05/29/JS%20%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%AF%A6%E8%A7%A3/&via=http://ldc5886.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldc5886.github.io/2019/05/29/JS%20%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%AF%A6%E8%A7%A3/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://ldc5886.github.io/2019/05/29/JS%20%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%AF%A6%E8%A7%A3/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/js/" class="color3">js</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于JS原型链的理解"><span class="post-toc-text">关于JS原型链的理解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象实例化方式"><span class="post-toc-text">对象实例化方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#原始模式"><span class="post-toc-text">原始模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#工厂模式"><span class="post-toc-text">工厂模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#构造函数模式"><span class="post-toc-text">构造函数模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#理解-constructor，protototype，proto-属性"><span class="post-toc-text">理解 constructor，protototype，proto 属性</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原型链"><span class="post-toc-text">原型链</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#什么是原型链"><span class="post-toc-text">什么是原型链</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在面向对象原型链中常见的函数"><span class="post-toc-text">在面向对象原型链中常见的函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#原型链中对象属性的查找规则"><span class="post-toc-text">原型链中对象属性的查找规则</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#原型继承"><span class="post-toc-text">原型继承</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#进阶理解"><span class="post-toc-text">进阶理解</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/05/29/JS%20%E9%97%AD%E5%8C%85/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          JS 闭包
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2019/05/26/%E4%BD%BF%E7%94%A8Babel/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">使用Babel</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 DC<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://ldc5886.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/framework/">framework</a><a class="category-link" href="/categories/note/">note</a><a class="category-link" href="/categories/used/">used</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+    <a href="javascript:;" target="_blank" rel="noopener" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>档案</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" target="_blank" rel="noopener" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;" target="_blank" rel="noopener">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

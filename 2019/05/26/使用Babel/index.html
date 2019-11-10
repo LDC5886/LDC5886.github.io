@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用Babel | 看看你踩进了什么</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="个人博客,D橙的小水洼" />
+  
+  <meta name="description" content="Babel使用规则Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。 这意味着，你可以现在就用 ES6 编写程序，而不用担心现有环境是否支持。下面是一个例子。 12345678&#x2F;&#x2F; 转码前input.map(item =&amp;gt; item + 1);&#x2F;&#x2F; 转码后input.map(function (item) &amp;#123;  return item + 1;&amp;">
+<meta name="keywords" content="js,babel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Babel">
+<meta property="og:url" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;2019&#x2F;05&#x2F;26&#x2F;%E4%BD%BF%E7%94%A8Babel&#x2F;index.html">
+<meta property="og:site_name" content="看看你踩进了什么">
+<meta property="og:description" content="Babel使用规则Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。 这意味着，你可以现在就用 ES6 编写程序，而不用担心现有环境是否支持。下面是一个例子。 12345678&#x2F;&#x2F; 转码前input.map(item =&amp;gt; item + 1);&#x2F;&#x2F; 转码后input.map(function (item) &amp;#123;  return item + 1;&amp;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-13T14:45:42.345Z">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">D橙的小水洼</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>档案</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        D橙的小水洼
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        出于崖涘 观于大海
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="home"  href="/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LDC5886">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-使用Babel" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      使用Babel
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/used/">used</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-05-26
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h2 id="Babel使用规则"><a href="#Babel使用规则" class="headerlink" title="Babel使用规则"></a>Babel使用规则</h2><p><strong><a href="https://babeljs.io/" target="_blank" rel="noopener">Babel</a>是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。</strong></p>
+<p><strong>这意味着，你可以现在就用 ES6 编写程序，而不用担心现有环境是否支持。下面是一个例子。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 转码前</span></span><br><span class="line">input.map(<span class="function"><span class="params">item</span> =&gt;</span> item + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 转码后</span></span><br><span class="line">input.map(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> item + <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//上面的原始代码用了箭头函数，这个特性还没有得到广泛支持，Babel将其转为普通函数，就能在现有的JavaScript环境执行了。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-安装babel"><a href="#1-安装babel" class="headerlink" title="1.安装babel"></a>1.安装<code>babel</code></h3><p>Babel提供<code>babel-cli</code>工具，用于命令行转码。</p>
+<p>它的安装命令如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需要先安装node环境</span></span><br><span class="line">npm install --global babel-cli</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-配置文件-babelrc"><a href="#2-配置文件-babelrc" class="headerlink" title="2.配置文件.babelrc"></a>2.配置文件<code>.babelrc</code></h3><p>Babel的配置文件是<code>.babelrc</code>，存放在项目的根目录下。使用Babel的第一步，就是配置这个文件。</p>
+<p>该文件用来设置转码规则和插件，基本格式如下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"presets"</span>: [],</span><br><span class="line">  <span class="string">"plugins"</span>: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>presets</code>字段设定转码规则，官方提供以下的规则集，你可以根据需要安装。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># ES2015转码规则</span><br><span class="line">npm install --save-dev babel-preset-es2015</span><br><span class="line"></span><br><span class="line"># ES7不同阶段语法提案的转码规则（共有4个阶段），选装一个</span><br><span class="line">npm install --save-dev babel-preset-stage<span class="number">-0</span></span><br><span class="line">npm install --save-dev babel-preset-stage<span class="number">-1</span></span><br><span class="line">npm install --save-dev babel-preset-stage<span class="number">-2</span></span><br><span class="line">npm install --save-dev babel-preset-stage<span class="number">-3</span></span><br></pre></td></tr></table></figure>
+
+<p>然后，将这些规则加入<code>.babelrc</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例如：按需求添加</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"presets"</span>: [</span><br><span class="line">      	<span class="string">"es2015"</span>,</span><br><span class="line">      	<span class="string">"stage-2"</span></span><br><span class="line">    ],</span><br><span class="line">	<span class="string">"plugins"</span>: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-用法"><a href="#3-用法" class="headerlink" title="3.用法"></a>3.用法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 转码结果输出到标准输出</span><br><span class="line">$ babel example.js</span><br><span class="line"></span><br><span class="line"># 转码结果写入一个文件</span><br><span class="line"># --out-file 或 -o 参数指定输出文件</span><br><span class="line">$ babel example.js --out-file compiled.js</span><br><span class="line"># 或者</span><br><span class="line">$ babel example.js -o compiled.js</span><br><span class="line"></span><br><span class="line"># 整个目录转码</span><br><span class="line"># --out-dir 或 -d 参数指定输出目录</span><br><span class="line">$ babel src --out-dir lib</span><br><span class="line"># 或者</span><br><span class="line">$ babel src -d lib</span><br><span class="line"></span><br><span class="line"># -s 参数生成source map文件</span><br><span class="line">$ babel src -d lib -s</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>上面代码是在全局环境下，进行Babel转码。这意味着，如果项目要运行，全局环境必须有Babel，也就是说项目产生了对环境的依赖。另一方面，这样做也无法支持不同项目使用不同版本的Babel。</p>
+<p>一个解决办法是将<code>babel-cli</code>安装在项目之中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 安装</span><br><span class="line">npm install --save-dev babel-cli</span><br></pre></td></tr></table></figure>
+
+<p>然后，改写<code>package.json</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"babel-cli"</span>: <span class="string">"^6.0.0"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"babel src -d lib"</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>转码的时候，就执行下面的命令。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月13日 22:45</p>
+        <p>原始链接： <a class="post-url" href="/2019/05/26/%E4%BD%BF%E7%94%A8Babel/" title="使用Babel">http://ldc5886.github.io/2019/05/26/%E4%BD%BF%E7%94%A8Babel/</a></p>
+        <footer>
+            <a href="http://ldc5886.github.io">
+                <img src="/images/logo.png" alt="DC">
+                DC
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" target="_blank" rel="noopener">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" target="_blank" rel="noopener" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldc5886.github.io/2019/05/26/%E4%BD%BF%E7%94%A8Babel/&title=《使用Babel》 — 看看你踩进了什么&pic=https://ldc5886.github.io/images/used.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" target="_blank" rel="noopener" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldc5886.github.io/2019/05/26/%E4%BD%BF%E7%94%A8Babel/&title=《使用Babel》 — 看看你踩进了什么&source=个人博客，DC的小水洼" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldc5886.github.io/2019/05/26/%E4%BD%BF%E7%94%A8Babel/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用Babel》 — 看看你踩进了什么&url=http://ldc5886.github.io/2019/05/26/%E4%BD%BF%E7%94%A8Babel/&via=http://ldc5886.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldc5886.github.io/2019/05/26/%E4%BD%BF%E7%94%A8Babel/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://ldc5886.github.io/2019/05/26/%E4%BD%BF%E7%94%A8Babel/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/js/" class="color3">js</a>
+      
+    <a href="/tags/babel/" class="color1">babel</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Babel使用规则"><span class="post-toc-text">Babel使用规则</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-安装babel"><span class="post-toc-text">1.安装babel</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-配置文件-babelrc"><span class="post-toc-text">2.配置文件.babelrc</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-用法"><span class="post-toc-text">3.用法</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/05/29/JS%20%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%AF%A6%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          JS 原型链详解
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2019/05/26/Canvas%E4%B8%ADsave%E4%B8%8Erestore%E4%BD%9C%E7%94%A8%E8%AF%A6%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Canvas中save与restore作用详解</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 DC<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://ldc5886.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/framework/">framework</a><a class="category-link" href="/categories/note/">note</a><a class="category-link" href="/categories/used/">used</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+    <a href="javascript:;" target="_blank" rel="noopener" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>档案</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" target="_blank" rel="noopener" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;" target="_blank" rel="noopener">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

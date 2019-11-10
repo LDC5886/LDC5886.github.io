@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>前端工程化、模块化、组件化概念 | 看看你踩进了什么</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="个人博客,D橙的小水洼" />
+  
+  <meta name="description" content="前端工程化、模块化、组件化概念浅浅浅浅析">
+<meta name="keywords" content="optimization">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端工程化、模块化、组件化概念">
+<meta property="og:url" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;2019&#x2F;06&#x2F;26&#x2F;%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5&#x2F;index.html">
+<meta property="og:site_name" content="看看你踩进了什么">
+<meta property="og:description" content="前端工程化、模块化、组件化概念浅浅浅浅析">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-13T14:31:39.137Z">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">D橙的小水洼</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>档案</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        D橙的小水洼
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        出于崖涘 观于大海
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="home"  href="/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LDC5886">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-前端工程化、模块化、组件化概念" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      前端工程化、模块化、组件化概念
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/note/">note</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-06-26
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>前端工程化、模块化、组件化概念浅浅浅浅析</p>
+<a id="more"></a>
+
+<h3 id="前端工程化"><a href="#前端工程化" class="headerlink" title="前端工程化"></a>前端工程化</h3><p>还记得我在最早期写前端代码时,往往一个页面就是一个文件搞定,HTML/CSS/JS全部写在一起,后来知道应该把结构、样式和动作分离,我想这是我接触到最早的前端工程化的思想了,所谓前端工程化我认为就是<br>将前端项目当成一项系统工程进行分析、组织和构建从而达到项目结构清晰、分工明确、团队配合默契、开发效率提高的目的.</p>
+<p>工程化是一种思想而不是某种技术(当然为了实现工程化我们会用一些技术),所谓前端工程化就是将前端项目当成一项系统工程进行分析、组织和构建从而达到项目结构清晰、分工明确、团队配合默契、开发效率提高的目的。而模块化和组件化是为工程化思想下相对较具体的开发方式，因此可以简单的认为模块化和组件化是工程化的表现形式。<br>这样说还不够具体,举个例子来说:<br>要盖一栋大楼,假如我们不进行工程化的考量那就是一上来掂起瓦刀、砖块就开干,直到把大楼垒起来,这样做往往意味着中间会出现错误,要推倒重来或是盖好以后结构有问题但又不知道出现在哪谁的责任甚至会在某一天轰然倒塌,那我们如果用工程化的思想去做,就会先画图纸、确定结构、确定用料和预算以及工期,另外需要用到什么工种多少人等等,我们会先打地基再建框架再填充墙体这样最后建立起来的高楼才是稳固的合规的,什么地方出了问题我们也能找到源头和负责人。</p>
+<p>前面我说接触最早的工程化思维就是“结构、样式和动作分离”,在只有若干个页面的小型项目我们只需要用这些简单的做法就能把项目很好的组织起来,但是在一个大型web项目中往往有更加复杂的结构和非常多的页面需要很多人甚至是多个团队配合才能把项目做完,我们需要有更加严谨和复杂的工程化思维去组织结构。从更高层面的项目组织来看我们要做项目的各种规范、技术选型、项目构建优化等等,在代码层面我们还需要用到JS/CSS模块机、UI组件化等开发方式。</p>
+<p>再用一句通俗的话来概括前端工程化:前端工程化就是用做工程的思维看待和开发自己的项目,而不再是直接撸起袖子一个页面一个页面开写</p>
+<p>前端工程化分为三个大阶段</p>
+<p>技术选型：库/框架选型</p>
+<p>简单构建优化：选型之后基本上就可以开始敲码了，不过光解决开发效率还不够，必须要兼顾运行性能。前端工程进行到第二阶段会选型一种构建工具，对代码进行压缩，校验，之后再以页面为单位进行简单的资源合并。</p>
+<p>JS/CSS模块化开发：   JS模块化方案很多，AMD/CommonJS/UMD/ES6 Module等，对应的框架和工具也一大堆，说起来很烦，大家自行百度吧；CSS模块化开发基本都是在less、sass、stylus等预处理器的import/mixin特性支持下实现的。</p>
+<h3 id="前端模块化"><a href="#前端模块化" class="headerlink" title="前端模块化"></a>前端模块化</h3><p>前面我们提到在组织代码的时候会用到模块化和组件化,大家应该理解到,前端工程化是一个高层次的思想,而模块化和组件化是为工程化思想下相对较具体的开发方式,因此可以简单的认为模块化和组件化是工程化的表现形式。</p>
+<p>那具体什么是模块化呢,还是举简单的例子,我们要写一个实现A功能的JS代码,这个功能在项目其他位置也需要用到,那么我们就可以把这个功能看成一个模块采用一定的方式进行模块化编写,既能实现复用还可以分而治之,同理在写样式的时候,如果我们需要某种特殊的样式,会在很多地方应用,那么我们也可以采用一定的方式进行CSS的模块化,具体说来,JS模块化方案很多有AMD/CommonJS/UMD/ES6 Module等,CSS模块化开发大多是在less、sass、stylus等预处理器的import/mixin特性支持下实现的,具体技术大家自行学习。</p>
+<p>三种模块化规范</p>
+<ol>
+<li>CommonJS</li>
+</ol>
+<p>根据 CommonJS 规范，一个单独的文件就是一个模块。每一个模块都是一个单独的作用域，也就是说，在该模块内部定义的变量，无法被其他模块读取，除非定义为global对象的属性。</p>
+<ol start="2">
+<li>AMD</li>
+</ol>
+<p>AMD 即 Asynchronous Module Definition，中文名是异步模块定义的意思。AMD规范通过 define 方法去定义模块，通过require方法去加载模块。RequireJS 实现了这种规范。</p>
+<ol start="3">
+<li>CMD</li>
+</ol>
+<p>CMD 即 Common Module Definition 通用模块定义，是 SeaJS 在推广过程中对模块定义的规范化产出。</p>
+<p>模块化规范： <a href="https://blog.csdn.net/fu983531588/article/details/89309242" target="_blank" rel="noopener">https://blog.csdn.net/fu983531588/article/details/89309242</a></p>
+<h3 id="前端组件化"><a href="#前端组件化" class="headerlink" title="前端组件化"></a>前端组件化</h3><p>前文中我们提到过,组件化也是工程化的表现形式,那么到底什么是前端组件化呢<br>①页面上的每个独立的、可视/可交互区域视为一个组件;<br>②每个组件对应一个工程目录,组件所需的各种资源都在这个目录下就近维护;<br>③由于组件具有独立性,因此组件与组件之间可以 自由组合;<br>④页面只不过是组件的容器,负责组合组件形成功能完整的界面;<br>⑤当不需要某个组件,或者想要替换组件时,可以整个目录删除/替换。</p>
+<p>组件化将页面视为一个容器,页面上各个独立部分例如:头部、导航、焦点图、侧边栏、底部等视为独立组件,不同的页面根据内容的需要,去盛放相关组件即可组成完整的页面。</p>
+<p>PS:模块化和组件化一个最直接的好处就是复用,同时我们也应该有一个理念,模块化和组件化除了复用之外还有就是分治,我们能够在不影响其他代码的情况下按需修改某一独立的模块或是组件,因此很多地方我们及时没有很强烈的复用需要也可以根据分治需求进行模块化或组件化开发。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月13日 22:31</p>
+        <p>原始链接： <a class="post-url" href="/2019/06/26/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5/" title="前端工程化、模块化、组件化概念">http://ldc5886.github.io/2019/06/26/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5/</a></p>
+        <footer>
+            <a href="http://ldc5886.github.io">
+                <img src="/images/logo.png" alt="DC">
+                DC
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" target="_blank" rel="noopener">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" target="_blank" rel="noopener" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldc5886.github.io/2019/06/26/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5/&title=《前端工程化、模块化、组件化概念》 — 看看你踩进了什么&pic=https://ldc5886.github.io/images/note.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" target="_blank" rel="noopener" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldc5886.github.io/2019/06/26/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5/&title=《前端工程化、模块化、组件化概念》 — 看看你踩进了什么&source=前端工程化、模块化、组件化概念浅浅浅浅析" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldc5886.github.io/2019/06/26/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《前端工程化、模块化、组件化概念》 — 看看你踩进了什么&url=http://ldc5886.github.io/2019/06/26/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5/&via=http://ldc5886.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldc5886.github.io/2019/06/26/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://ldc5886.github.io/2019/06/26/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/optimization/" class="color3">optimization</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前端工程化"><span class="post-toc-text">前端工程化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前端模块化"><span class="post-toc-text">前端模块化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前端组件化"><span class="post-toc-text">前端组件化</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/06/26/%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8Ehttp%E5%8D%8F%E8%AE%AE%E7%9A%84%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          一些关于http协议的问题
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2019/06/26/%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">关于性能优化方案</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 DC<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://ldc5886.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/framework/">framework</a><a class="category-link" href="/categories/note/">note</a><a class="category-link" href="/categories/used/">used</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+    <a href="javascript:;" target="_blank" rel="noopener" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>档案</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" target="_blank" rel="noopener" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;" target="_blank" rel="noopener">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

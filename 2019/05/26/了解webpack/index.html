@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>了解webpack | 看看你踩进了什么</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="个人博客,D橙的小水洼" />
+  
+  <meta name="description" content="安装webpack webpack是一个前端打包工具  1234#要使用npm，必须先安装nodejs&#x2F;&#x2F;node安装完成后，打开终端，在全局安装webpack，方法如下：npm install -g webpack&#x2F;&#x2F;等待安装完成......  创建配置项 使用webpack，必须设置好配置项  每个项目的依赖不一样，配置项也会不一样，所以配置项需要在项目的根目录配置:  首先，在项目根目录">
+<meta name="keywords" content="webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="了解webpack">
+<meta property="og:url" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;2019&#x2F;05&#x2F;26&#x2F;%E4%BA%86%E8%A7%A3webpack&#x2F;index.html">
+<meta property="og:site_name" content="看看你踩进了什么">
+<meta property="og:description" content="安装webpack webpack是一个前端打包工具  1234#要使用npm，必须先安装nodejs&#x2F;&#x2F;node安装完成后，打开终端，在全局安装webpack，方法如下：npm install -g webpack&#x2F;&#x2F;等待安装完成......  创建配置项 使用webpack，必须设置好配置项  每个项目的依赖不一样，配置项也会不一样，所以配置项需要在项目的根目录配置:  首先，在项目根目录">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-13T14:39:22.537Z">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">D橙的小水洼</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>档案</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        D橙的小水洼
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        出于崖涘 观于大海
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="home"  href="/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LDC5886">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-了解webpack" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      了解webpack
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/framework/">framework</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-05-26
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h5 id="安装webpack"><a href="#安装webpack" class="headerlink" title="安装webpack"></a>安装webpack</h5><blockquote>
+<p>webpack是一个前端打包工具</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#要使用npm，必须先安装nodejs</span><br><span class="line"><span class="comment">//node安装完成后，打开终端，在全局安装webpack，方法如下：</span></span><br><span class="line">npm install -g webpack</span><br><span class="line"><span class="comment">//等待安装完成......</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="创建配置项"><a href="#创建配置项" class="headerlink" title="创建配置项"></a>创建配置项</h5><blockquote>
+<p>使用webpack，必须设置好配置项</p>
+</blockquote>
+<p>每个项目的依赖不一样，配置项也会不一样，所以配置项需要在项目的根目录配置:</p>
+<ol>
+<li>首先，在项目根目录   按  shift+右键  –&gt;  在此处打开命令窗口</li>
+<li>然后输入：<code>npm init</code></li>
+<li>然后连按7-8次回车，直到根目录出现 <code>package.json</code> 文件</li>
+</ol>
+<h5 id="配置package-json"><a href="#配置package-json" class="headerlink" title="配置package.json"></a>配置package.json</h5><blockquote>
+<p>配置package是使用webpack非常重要的一步</p>
+</blockquote>
+<p>安装webpack依赖，在终端输入：<code>npm install --save-dev webpack</code>，等待成功。</p>
+<h5 id="使用webpack"><a href="#使用webpack" class="headerlink" title="使用webpack"></a>使用webpack</h5><blockquote>
+<p>使用webpack进行打包，为了可以一次打包多个文件，此时还需要配置一个文件webpack.config.js</p>
+</blockquote>
+<p>在根目录新建一个<code>webpack.config.js</code>文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">//__dirname是nodejs里的一个全局变量，它指向的是项目的根目录</span></span><br><span class="line">  entry:__dirname + <span class="string">"/app/main.js"</span>, <span class="comment">//入口文件路径，例如入口文件是：根目录下的app文件夹里的main.js</span></span><br><span class="line">  output:&#123;</span><br><span class="line">    <span class="comment">//设置出口文件（打包后的文件）位置</span></span><br><span class="line">    path:__dirname+<span class="string">"/public/"</span>,</span><br><span class="line">    <span class="comment">//出口文件名</span></span><br><span class="line">    filename:<span class="string">"index.js"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>webpack.config.js</code>配置完成后，使用webpack打包，直接在cmd输入<code>webpack</code>回车即可。</p>
+<p>输出的文件在根目录的<code>public/index.js</code>，然后引入<code>index.js</code>到你的html文件，开始疯狂输出把。</p>
+<hr>
+<p>每次使用cmd，除了可以webpack回车打包以外，</p>
+<p>还可以在<code>package.json</code>里的<code>scripts</code>下，添加一个属性<code>start</code>值为<code>webpack</code></p>
+<p>这样以后使用就可以在cmd里输入：<code>npm start</code>，跟前面输入webpack一样的效果</p>
+<p><strong>ps</strong>:<code>start</code>是一个关键字，如果需要自定义如：<code>fy</code></p>
+<p>那么使用的就不能<code>npm fy</code>，而是需要<code>npm run fy</code></p>
+<hr>
+<h5 id="Loaders"><a href="#Loaders" class="headerlink" title="Loaders"></a>Loaders</h5><blockquote>
+<p>Loaders是webpack中最核心的功能，通过使用不同的loader，webpack通过调用外部的脚本或工具，可以对各种文件进行处理，比如说：分析json文件并把它转为JavaScript文件，或者把es6的代码转为es5，还可以把react的JSX转为js文件等等</p>
+</blockquote>
+<p>Loaders需要单独安装并在<code>webpack.config.js</code>下的<code>module</code>下进行配置，配置包括以下几方面：</p>
+<ol>
+<li>test：一个匹配loaders所处理的文件的拓展名的正则表达式（必须）</li>
+<li>use：一个数组，里面是对象，对象里是<code>loader：css-loader</code>这种类型</li>
+</ol>
+<p>例如：</p>
+<h6 id="使用json的loader"><a href="#使用json的loader" class="headerlink" title="使用json的loader"></a>使用json的loader</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev json-loader</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>json-loader不需要需要配置文件</p>
+</blockquote>
+<h6 id="处理样式表"><a href="#处理样式表" class="headerlink" title="处理样式表"></a>处理样式表</h6><p>webpack提供两个工具处理样式表，<code>css-loader</code>和<code>style-loader</code>：</p>
+<ul>
+<li>css-loader使你能够使用类似@import和url(…)的方式实现require()的功能</li>
+<li>style-loader将所有的样式计算后，加入页面。两者组合在一起使你能够把样式表嵌入webpack打包的文件里</li>
+</ul>
+<p>安装命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev style-loader css-loader</span><br></pre></td></tr></table></figure>
+
+<p>配置项：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>:&#123;</span><br><span class="line">  rules:[</span><br><span class="line">    &#123;</span><br><span class="line">      test:<span class="regexp">/\.css$/</span>,</span><br><span class="line">      use:[</span><br><span class="line">        &#123;<span class="attr">loader</span>:<span class="string">"style-loader"</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">loader</span>:<span class="string">"css-loader"</span>&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="打包时编译"><a href="#打包时编译" class="headerlink" title="打包时编译"></a>打包时编译</h3><p>打包的时，如果需要编译es6代码为旧版浏览器支持的es5代码，需要使用一些相关的loader</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-core --save</span><br><span class="line">npm install babel-loader --save</span><br><span class="line">npm install babel-preset-es2015 --save</span><br><span class="line"><span class="comment">//需要安装三个需要的插件，可以一次性安装</span></span><br><span class="line">#npm install babel-core babel-loader babel-preset-es2015 --save</span><br><span class="line"><span class="comment">//(不要输入#)</span></span><br></pre></td></tr></table></figure>
+
+<p>安装完成后需要配置相关文件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//首先需要配置babel编译需要的配置文件：   .babelrc</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"presets"</span>: [<span class="string">"es2015"</span>],</span><br><span class="line">  <span class="string">"plugins"</span>: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后需要设置webpack的配置文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">//入口文件</span></span><br><span class="line">  entry: __dirname + <span class="string">"/js/main.js"</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    <span class="comment">//webpack打包后的输出的路径</span></span><br><span class="line">    path: __dirname,</span><br><span class="line">    <span class="comment">//输出的文件名</span></span><br><span class="line">    filename: <span class="string">'index.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      <span class="comment">// exclude 排除，不需要编译的目录，提高编译速度 (node_modules是模块安装的位置，不需要编译) </span></span><br><span class="line">      &#123;<span class="attr">test</span>: <span class="regexp">/\.js$/</span>, <span class="attr">use</span>: <span class="string">'babel-loader'</span>, <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月13日 22:39</p>
+        <p>原始链接： <a class="post-url" href="/2019/05/26/%E4%BA%86%E8%A7%A3webpack/" title="了解webpack">http://ldc5886.github.io/2019/05/26/%E4%BA%86%E8%A7%A3webpack/</a></p>
+        <footer>
+            <a href="http://ldc5886.github.io">
+                <img src="/images/logo.png" alt="DC">
+                DC
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" target="_blank" rel="noopener">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" target="_blank" rel="noopener" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldc5886.github.io/2019/05/26/%E4%BA%86%E8%A7%A3webpack/&title=《了解webpack》 — 看看你踩进了什么&pic=https://ldc5886.github.io/images/framework.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" target="_blank" rel="noopener" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldc5886.github.io/2019/05/26/%E4%BA%86%E8%A7%A3webpack/&title=《了解webpack》 — 看看你踩进了什么&source=个人博客，DC的小水洼" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldc5886.github.io/2019/05/26/%E4%BA%86%E8%A7%A3webpack/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《了解webpack》 — 看看你踩进了什么&url=http://ldc5886.github.io/2019/05/26/%E4%BA%86%E8%A7%A3webpack/&via=http://ldc5886.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldc5886.github.io/2019/05/26/%E4%BA%86%E8%A7%A3webpack/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://ldc5886.github.io/2019/05/26/%E4%BA%86%E8%A7%A3webpack/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/webpack/" class="color3">webpack</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#安装webpack"><span class="post-toc-text">安装webpack</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#创建配置项"><span class="post-toc-text">创建配置项</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#配置package-json"><span class="post-toc-text">配置package.json</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#使用webpack"><span class="post-toc-text">使用webpack</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Loaders"><span class="post-toc-text">Loaders</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#使用json的loader"><span class="post-toc-text">使用json的loader</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#处理样式表"><span class="post-toc-text">处理样式表</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#打包时编译"><span class="post-toc-text">打包时编译</span></a>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/05/26/CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          CSS兼容性问题
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2019/05/25/CSS%20%E4%B9%A6%E5%86%99%E9%A1%BA%E5%BA%8F%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%91%BD%E5%90%8D%E5%8F%82%E8%80%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">CSS 书写顺序与常用命名参考</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 DC<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://ldc5886.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/framework/">framework</a><a class="category-link" href="/categories/note/">note</a><a class="category-link" href="/categories/used/">used</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+    <a href="javascript:;" target="_blank" rel="noopener" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>档案</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" target="_blank" rel="noopener" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;" target="_blank" rel="noopener">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

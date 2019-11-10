@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>微信小程序反编译方法（19.7.24亲测可用） | 看看你踩进了什么</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="个人博客,D橙的小水洼" />
+  
+  <meta name="description" content="今天让我仿写一个微信小程序，实在是无从下手，只好想办法搞搞源码来学习一下 这种方法，并不能反编译出所有的小程序源码">
+<meta name="keywords" content="Wechat Mini Program">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序反编译方法（19.7.24亲测可用）">
+<meta property="og:url" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;2019&#x2F;07&#x2F;24&#x2F;%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%EF%BC%8819.7.24%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%89&#x2F;index.html">
+<meta property="og:site_name" content="看看你踩进了什么">
+<meta property="og:description" content="今天让我仿写一个微信小程序，实在是无从下手，只好想办法搞搞源码来学习一下 这种方法，并不能反编译出所有的小程序源码">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation01.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation02.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation03.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation04.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation05.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation06.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation08.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation09.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation10.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation11.png">
+<meta property="og:updated_time" content="2019-10-13T14:21:56.483Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;images&#x2F;Mini-Program-Decompilation01.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">D橙的小水洼</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>档案</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        D橙的小水洼
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        出于崖涘 观于大海
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="home"  href="/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LDC5886">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-微信小程序反编译方法（19.7.24亲测可用）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      微信小程序反编译方法（19.7.24亲测可用）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/framework/">framework</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-07-24
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>今天让我仿写一个微信小程序，实在是无从下手，只好想办法搞搞源码来学习一下</p>
+<p><strong>这种方法，并不能反编译出所有的小程序源码</strong></p>
+<a id="more"></a>
+
+<h3 id="获取到-wxapkg文件"><a href="#获取到-wxapkg文件" class="headerlink" title="获取到.wxapkg文件"></a>获取到.wxapkg文件</h3><h4 id="方式一-模拟器法"><a href="#方式一-模拟器法" class="headerlink" title="方式一 模拟器法"></a>方式一 模拟器法</h4><p>准备材料：</p>
+<ol>
+<li><p>node.js运行环境（自行百度安装教程）<br>下载安装好<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs</a></p>
+</li>
+<li><p>反编译的脚本（需要做一定的修改，否则编译出来的文件缺少样式，修改方法见下方<strong>脚本的修改</strong>）<br>使用Github上qwerty472123大神写的node.js版本的，当然也有其它版本的，例如python版等，自行度娘。<br>下载地址：<br>旧版<a href="https://github.com/qwerty472123/wxappUnpacker" target="_blank" rel="noopener">Wechat App(微信小程序,.wxapkg)解包及相关文件(.wxss,.json,.wxs,.wxml)还原工具</a><br>2019版<a href="https://github.com/museL/wxappUnpacker-master" target="_blank" rel="noopener">2019小程序解包 解决$gwx报错问题</a></p>
+</li>
+<li><p>安卓模拟器（要求自带root权限）<br>例如夜神模拟器，腾讯手游助手等</p>
+</li>
+</ol>
+<p>具体步骤如下：</p>
+<ol>
+<li><p>打开安装好的安卓模拟器，并在模拟器中安装QQ、微信、RE管理器<br>RE管理器的下载地址<code>https://pan.baidu.com/s/1PPBx08rNutXxhlMMJbuTpQ</code></p>
+</li>
+<li><p>设置一下模拟器<br>以夜神模拟器举例<br>首先到模拟器内部设置超级用户权限<br><img src="/images/Mini-Program-Decompilation01.png" alt="Mini-Program-Decompilation"><br><img src="/images/Mini-Program-Decompilation02.png" alt="Mini-Program-Decompilation"><br>这些操作的目的都是为了能让RE管理器顺利的获取到ROOT权限<br>接下来在模拟器里打开微信，然后在微信中运行你想要获取的下程序（这其实是让微信把小程序的源文件包从服务器下载到了本地了）</p>
+</li>
+<li><p>在模拟器微信中运行一下后，直接切回模拟器桌面运行RE管理器 来到根目录下的<code>/data/data/com.tencent.mm/MicroMsg//appbrand/pkg/</code>就抵达了目的文件夹<br><img src="/images/Mini-Program-Decompilation03.png" alt="Mini-Program-Decompilation"><br>你会看到发现里面的一些.wxapkg后缀的文件，就是它们没错啦，可以根据使用的时间来判断那个是你刚才从服务器下载过来的</p>
+</li>
+</ol>
+<p><strong>这里重要声明一下</strong>：虽然微信小程序的包后缀是.wxapkg，但有一些包的依赖后缀也是.wxapkg，真正的小程序包大小1M左右，而依赖包大小2、3M甚至更多。所以一股脑的反编译.wxapkg 类型的文件可能会报错：<code>Error: This Package is unrecognizable, please decrypted every type of file by hand.</code>，遇见这个问题请自知，你可能没找对包！</p>
+<ol start="4">
+<li>一般小程序的文件不会太大，可以结合时间来判断，长按压缩所选文件,然后再将压缩好的包通过QQ发送到我的电脑<br><img src="/images/Mini-Program-Decompilation04.png" alt="Mini-Program-Decompilation"></li>
+</ol>
+<p><em>如果不进行压缩的话，是无法将这个文件通过QQ来发送的</em></p>
+<ol start="5">
+<li>最后将发送过来的文件进行解压。这样几步简单操作，就成功拿到了小程序的源文件了。</li>
+</ol>
+<h4 id="方式二-手机备份法（我用的这种）"><a href="#方式二-手机备份法（我用的这种）" class="headerlink" title="方式二 手机备份法（我用的这种）"></a>方式二 手机备份法（我用的这种）</h4><p>准备材料：<br>1.、2.同方式一</p>
+<ol start="3">
+<li>一台带有备份功能的智能手机</li>
+</ol>
+<p>具体步骤如下：</p>
+<ol>
+<li><p>备份微信应用：<br>为便于查找，最好单独备份微信，以安卓手机为例，大致流程如下：设置——存储与备份——备份手机数据——添加备份——应用——选择微信，然后点击确定，等待备份完成即可。<br><img src="/images/Mini-Program-Decompilation05.png" alt="Mini-Program-Decompilation"><br><img src="/images/Mini-Program-Decompilation06.png" alt="Mini-Program-Decompilation"><br>PS：如果是获取别人的小程序，不清楚小程序结构，那么最好是把微信中其他的小程序都删掉，只保留要查找的小程序进行访问后对微信单独备份，这样备份之后的文件中的编译包就只有需要的这个小程序了。</p>
+</li>
+<li><p>查找备份文件：<br>文件管理——全部文件——backup——App中找到<code>com.tencent.mm.zip</code>,这就是微信备份文件了（注意不同手机目录结构会不同）。<br>也可以直接搜索<code>com.tencent.mm.zip</code><br>最后通过qq或微信将这个压缩包分享到电脑上。</p>
+</li>
+<li><p>查找小程序编译包文件：</p>
+</li>
+</ol>
+<p>解压文件，点击进入MicroMsg文件夹,找到文件名为串码格式的文件夹，如下，需要点进去确认下：<br><img src="/images/Mini-Program-Decompilation08.png" alt="Mini-Program-Decompilation"><br>点击进去——第一个appbrand——pkg，下方的那些.wxapkg后缀的文件就是<br><img src="/images/Mini-Program-Decompilation09.png" alt="Mini-Program-Decompilation"></p>
+<h3 id="使用反编译脚本解包-wxapkg"><a href="#使用反编译脚本解包-wxapkg" class="headerlink" title="使用反编译脚本解包.wxapkg"></a>使用反编译脚本解包.wxapkg</h3><p>将反编译脚本从github下载 或者 clone 到本地某个目录<br>打开nodejs命令窗口<br><img src="/images/Mini-Program-Decompilation10.png" alt="Mini-Program-Decompilation"><br>用cd命令进入到你clone或者下载好的反编译脚本目录下<br>在node命令窗口中依次使用如下命令安装依赖包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm install esprima</span><br><span class="line">npm install css-tree</span><br><span class="line">npm install cssbeautify</span><br><span class="line">npm install vm2</span><br><span class="line">npm install uglify-es</span><br><span class="line">npm install js-beautify</span><br><span class="line">npm install escodegen</span><br></pre></td></tr></table></figure>
+<p>在当前目录下输入<code>node wuWxapkg.js 想要反编译的文件路径</code>（注意空格！！！）然后回车即可，如下图<br><img src="/images/Mini-Program-Decompilation11.png" alt="Mini-Program-Decompilation"></p>
+<p>最后稍等一会在安装包目录下会出现一个与编译文件同名的文件夹，那个就是编译好的源码文件夹了</p>
+<h3 id="打开源码文件"><a href="#打开源码文件" class="headerlink" title="打开源码文件"></a>打开源码文件</h3><p>打开微信开发者工具——左上角“项目”——“导入项目”，然后如图所示</p>
+<h3 id="脚本的修改"><a href="#脚本的修改" class="headerlink" title="脚本的修改"></a>脚本的修改</h3><p>由于新版小程序做了改动，直接使用下载的脚本编译出来的文件会缺少wxss的样式文件，并且编译过程会报错，需要做如下修改后再编译才行</p>
+<p>将反编译脚本wuWxss.js文件中的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">runVM</span>(<span class="params">name,code</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> wxAppCode=&#123;&#125;,handle=&#123;<span class="attr">cssFile</span>:name&#125;;</span><br><span class="line">    <span class="keyword">let</span> vm=<span class="keyword">new</span> VM(&#123;<span class="attr">sandbox</span>:<span class="built_in">Object</span>.assign(<span class="keyword">new</span> GwxCfg(),&#123;<span class="attr">__wxAppCode__</span>:wxAppCode,<span class="attr">setCssToHead</span>:cssRebuild.bind(handle)&#125;)&#125;);</span><br><span class="line">    vm.run(code);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> name <span class="keyword">in</span> wxAppCode)<span class="keyword">if</span>(name.endsWith(<span class="string">".wxss"</span>))&#123;</span><br><span class="line">        handle.cssFile=path.resolve(frameName,<span class="string">".."</span>,name);</span><br><span class="line">        wxAppCode[name]();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">runVM</span>(<span class="params">name,code</span>)</span>&#123;</span><br><span class="line"><span class="keyword">let</span> wxAppCode = &#123;&#125;;</span><br><span class="line">      <span class="keyword">let</span> handle = &#123;<span class="attr">cssFile</span>: name&#125;;</span><br><span class="line">      <span class="keyword">let</span> gg = <span class="keyword">new</span> GwxCfg();</span><br><span class="line">      <span class="keyword">let</span> tsandbox = &#123;</span><br><span class="line">         $gwx: GwxCfg.prototype[<span class="string">"$gwx"</span>],</span><br><span class="line">         __mainPageFrameReady__: GwxCfg.prototype[<span class="string">"$gwx"</span>],   <span class="comment">//解决 $gwx is not defined</span></span><br><span class="line">         __vd_version_info__: GwxCfg.prototype[<span class="string">"$gwx"</span>],  <span class="comment">//解决 __vd_version_info__ is not defined</span></span><br><span class="line">         __wxAppCode__: wxAppCode,</span><br><span class="line">         setCssToHead: cssRebuild.bind(handle)</span><br><span class="line">      &#125;</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">let</span> vm = <span class="keyword">new</span> VM(&#123;<span class="attr">sandbox</span>: tsandbox&#125;);</span><br><span class="line">      vm.run(code);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> name <span class="keyword">in</span> wxAppCode) &#123;</span><br><span class="line">         <span class="keyword">if</span> (name.endsWith(<span class="string">".wxss"</span>)) &#123;</span><br><span class="line">            handle.cssFile = path.resolve(frameName, <span class="string">".."</span>, name);</span><br><span class="line">            wxAppCode[name]();</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再保存即可</p>
+<p>参考来源<br><a href="https://blog.csdn.net/qq_33858250/article/details/80543815" target="_blank" rel="noopener">反编译获取任何微信小程序源码(完)</a><br><a href="https://www.cnblogs.com/xyyt/p/9523902.html" target="_blank" rel="noopener">微信小程序编译包的获取与解压——在手机中获取小程序编译包wxapkg</a><br><a href="https://www.yuchunlai.com/index.php/archives/33/" target="_blank" rel="noopener">反编译微信小程序$gwx is not defined报错解决方法</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月13日 22:21</p>
+        <p>原始链接： <a class="post-url" href="/2019/07/24/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%EF%BC%8819.7.24%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%89/" title="微信小程序反编译方法（19.7.24亲测可用）">http://ldc5886.github.io/2019/07/24/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%EF%BC%8819.7.24%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%89/</a></p>
+        <footer>
+            <a href="http://ldc5886.github.io">
+                <img src="/images/logo.png" alt="DC">
+                DC
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" target="_blank" rel="noopener">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" target="_blank" rel="noopener" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldc5886.github.io/2019/07/24/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%EF%BC%8819.7.24%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%89/&title=《微信小程序反编译方法（19.7.24亲测可用）》 — 看看你踩进了什么&pic=https://ldc5886.github.io/images/framework.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" target="_blank" rel="noopener" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldc5886.github.io/2019/07/24/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%EF%BC%8819.7.24%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%89/&title=《微信小程序反编译方法（19.7.24亲测可用）》 — 看看你踩进了什么&source=今天让我仿写一个微信小程序，实在是无从下手，只好想办法搞搞源码来学习一下
+这种方法，并不能反编译出所有的小程序源码" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldc5886.github.io/2019/07/24/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%EF%BC%8819.7.24%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%89/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《微信小程序反编译方法（19.7.24亲测可用）》 — 看看你踩进了什么&url=http://ldc5886.github.io/2019/07/24/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%EF%BC%8819.7.24%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%89/&via=http://ldc5886.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldc5886.github.io/2019/07/24/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%EF%BC%8819.7.24%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%89/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://ldc5886.github.io/2019/07/24/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95%EF%BC%8819.7.24%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%89/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/WechatMiniProgram/" class="color5">Wechat Mini Program</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取到-wxapkg文件"><span class="post-toc-text">获取到.wxapkg文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方式一-模拟器法"><span class="post-toc-text">方式一 模拟器法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方式二-手机备份法（我用的这种）"><span class="post-toc-text">方式二 手机备份法（我用的这种）</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用反编译脚本解包-wxapkg"><span class="post-toc-text">使用反编译脚本解包.wxapkg</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#打开源码文件"><span class="post-toc-text">打开源码文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本的修改"><span class="post-toc-text">脚本的修改</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/08/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E6%96%B9%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          移动端布局方式
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2019/07/22/%E5%B8%B8%E8%A7%81%E5%8F%B7%E7%A0%81%E6%AD%A3%E5%88%99%E9%AA%8C%E8%AF%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">常见号码正则验证</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 DC<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://ldc5886.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/framework/">framework</a><a class="category-link" href="/categories/note/">note</a><a class="category-link" href="/categories/used/">used</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+    <a href="javascript:;" target="_blank" rel="noopener" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>档案</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" target="_blank" rel="noopener" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;" target="_blank" rel="noopener">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

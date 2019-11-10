@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CSS兼容性问题 | 看看你踩进了什么</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="个人博客,D橙的小水洼" />
+  
+  <meta name="description" content="兼容性问题1. 每个属性必须兼容吗css3属性（例如transition，border-radius），超大一部分肯定是不兼容IE8，部分不兼容IE9&#x2F;IE10，部分根本不兼容IE。可以使用超复杂的js来解决部分的问题，但是并不完美，也使代码增加不必要的复杂度，所以不需要也不推荐去处理css3属在IE里面的兼容显示，但是一定要保证正常布局和浏览。 IE8-（主要指IE6，IE7）浏览器的兼容，某些">
+<meta name="keywords" content="css,compatible">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS兼容性问题">
+<meta property="og:url" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;2019&#x2F;05&#x2F;26&#x2F;CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98&#x2F;index.html">
+<meta property="og:site_name" content="看看你踩进了什么">
+<meta property="og:description" content="兼容性问题1. 每个属性必须兼容吗css3属性（例如transition，border-radius），超大一部分肯定是不兼容IE8，部分不兼容IE9&#x2F;IE10，部分根本不兼容IE。可以使用超复杂的js来解决部分的问题，但是并不完美，也使代码增加不必要的复杂度，所以不需要也不推荐去处理css3属在IE里面的兼容显示，但是一定要保证正常布局和浏览。 IE8-（主要指IE6，IE7）浏览器的兼容，某些">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-13T14:35:24.057Z">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">D橙的小水洼</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>档案</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        D橙的小水洼
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        出于崖涘 观于大海
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="home"  href="/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LDC5886">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-CSS兼容性问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      CSS兼容性问题
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/used/">used</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-05-26
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h2 id="兼容性问题"><a href="#兼容性问题" class="headerlink" title="兼容性问题"></a>兼容性问题</h2><h4 id="1-每个属性必须兼容吗"><a href="#1-每个属性必须兼容吗" class="headerlink" title="1. 每个属性必须兼容吗"></a>1. 每个属性必须兼容吗</h4><p><strong>css3属性</strong>（例如transition，border-radius），超大一部分肯定是不兼容IE8，部分不兼容IE9/IE10，部分根本不兼容IE。可以使用超复杂的js来解决部分的问题，但是并不完美，也使代码增加不必要的复杂度，所以不需要也不推荐去处理css3属在IE里面的兼容显示，但是一定要<strong>保证正常布局和浏览</strong>。</p>
+<p><strong>IE8-（主要指IE6，IE7）浏览器的兼容</strong>，某些属性和现代浏览器以及IE高版本显示差异巨大（例如fixed定位的不支持、min-width等的不支持，定位auto居中方式不支持），且目前IE浏览器的市场占比份额已经低的可怜，<strong>请放弃繁琐的IE8-浏览器的兼容</strong>，抵制辣鸡浏览器从我做起。非得兼容可以参考后面部分的IE-hack。</p>
+<h4 id="2-常见的兼容处理"><a href="#2-常见的兼容处理" class="headerlink" title="2. 常见的兼容处理"></a>2. 常见的兼容处理</h4><p><strong>opacity</strong>，IE8及以下不支持，使用滤镜filter:alpha(opacity=值)来代替；</p>
+<p><strong>rgba颜色、HSL颜色</strong>，IE8级以下不支持，在rgba之前始终定义一种通用颜色保证IE的代替方案；</p>
+<p><strong>部分选择器</strong>，IE6不支持属性选择器、子元素选择器 &gt;、相邻兄弟选择器 +，没有替代的方案，考虑实际情况做取舍；</p>
+<p><strong>:hover等伪类</strong>，IE6只支持a标签的hover，考虑实际情况做取舍；</p>
+<p><em>查看兼容性的非常好用的网站：</em> <a href="https://caniuse.com/" target="_blank" rel="noopener">Can I Use</a></p>
+<h4 id="3-超好用的IE条件语句"><a href="#3-超好用的IE条件语句" class="headerlink" title="3. 超好用的IE条件语句"></a>3. 超好用的IE条件语句</h4><p>这个东西就很牛逼了，这种判断写法只有IE能认识，其他浏览器会当做正常注释来处理，一起来看一下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--[if IE]&gt;</span></span><br><span class="line"><span class="comment">    只有IE才支持</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--[if !IE 7]&gt;</span></span><br><span class="line"><span class="comment">    IE7不支持</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--[if lt IE 8]&gt;</span></span><br><span class="line"><span class="comment">    IE8以下浏览器才支持</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--[if lte IE 8]&gt;</span></span><br><span class="line"><span class="comment">    IE8及以下浏览器才支持</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--[if gt IE 8]&gt;</span></span><br><span class="line"><span class="comment">    IE8以上浏览器才支持</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--[if gte IE 8]&gt;</span></span><br><span class="line"><span class="comment">    IE8及以上浏览器才支持</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-优雅降级与渐进增强"><a href="#4-优雅降级与渐进增强" class="headerlink" title="4. 优雅降级与渐进增强"></a>4. 优雅降级与渐进增强</h4><p>通俗一点来解释吧：</p>
+<p><strong>优雅降级：</strong>开始项目 <em>-&gt;</em> 管TM的兼容性先干了再说 <em>-&gt;</em> 网站写完了现代浏览器显示屌的不行 <em>-&gt;</em> 低版本浏览器有问题 <em>-&gt;</em> 改一改吧，保证正常的显示。</p>
+<p><strong>渐进增强：</strong>开始项目 <em>-&gt;</em> 猥琐点先用全浏览器兼容的主体布局 <em>-&gt;</em> 这个模块我可以使用新的CSS3让他在现代浏览器表现的更好！ <em>-&gt;</em> 还有这里也可以表现的更好 <em>-&gt;</em> 行了，低版本浏览器显示不会乱，但是优秀的浏览器有更优秀的显示。</p>
+<p>采用哪种呢？没有定论，依据项目的实际情况来定吧，比如项目不再在于IE低版本，当然采用优雅降级方式，写完了调整一下IE9+的显示就ok。比如项目很需要保证稳定性和各平台的正确显示性，采用渐进增强。</p>
+<h4 id="5-很JR蛋疼的css-hack"><a href="#5-很JR蛋疼的css-hack" class="headerlink" title="5. 很JR蛋疼的css hack"></a>5. 很JR蛋疼的css hack</h4><p>需要做IE6 IE7兼容的前端者，这可能对你有用。</p>
+<p>有些比较骚的css写法只能特定的IE浏览器才能解析：</p>
+<p><em>只有IE6能解析：</em>  p { <strong>_</strong>color:red; }     *****p {color:red;}</p>
+<p><em>只有IE7能解析：</em>  <strong>*+</strong>p {color:red;}</p>
+<p><em>IE6与IE7能解析：</em> p {<strong>***color:red;}    p {</strong>#<strong>color:red;}    p {</strong>+**color:red;}</p>
+<p><em>IE6 IE7与IE8：</em>  p {color:red<strong>\9</strong>;}</p>
+<p><em>IE8以上能解析：</em> p {color:red<strong>\0</strong>;}</p>
+<p>还有一些，甚至有专业的前辈列出了表，有兴趣的兄dei百度了解更多吧</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月13日 22:35</p>
+        <p>原始链接： <a class="post-url" href="/2019/05/26/CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" title="CSS兼容性问题">http://ldc5886.github.io/2019/05/26/CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/</a></p>
+        <footer>
+            <a href="http://ldc5886.github.io">
+                <img src="/images/logo.png" alt="DC">
+                DC
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" target="_blank" rel="noopener">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" target="_blank" rel="noopener" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldc5886.github.io/2019/05/26/CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/&title=《CSS兼容性问题》 — 看看你踩进了什么&pic=https://ldc5886.github.io/images/used.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" target="_blank" rel="noopener" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldc5886.github.io/2019/05/26/CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/&title=《CSS兼容性问题》 — 看看你踩进了什么&source=个人博客，DC的小水洼" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldc5886.github.io/2019/05/26/CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CSS兼容性问题》 — 看看你踩进了什么&url=http://ldc5886.github.io/2019/05/26/CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/&via=http://ldc5886.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldc5886.github.io/2019/05/26/CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://ldc5886.github.io/2019/05/26/CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/css/" class="color4">css</a>
+      
+    <a href="/tags/compatible/" class="color1">compatible</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#兼容性问题"><span class="post-toc-text">兼容性问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-每个属性必须兼容吗"><span class="post-toc-text">1. 每个属性必须兼容吗</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-常见的兼容处理"><span class="post-toc-text">2. 常见的兼容处理</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-超好用的IE条件语句"><span class="post-toc-text">3. 超好用的IE条件语句</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-优雅降级与渐进增强"><span class="post-toc-text">4. 优雅降级与渐进增强</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-很JR蛋疼的css-hack"><span class="post-toc-text">5. 很JR蛋疼的css hack</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/05/26/Canvas%E4%B8%ADsave%E4%B8%8Erestore%E4%BD%9C%E7%94%A8%E8%AF%A6%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Canvas中save与restore作用详解
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2019/05/26/%E4%BA%86%E8%A7%A3webpack/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">了解webpack</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 DC<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://ldc5886.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/framework/">framework</a><a class="category-link" href="/categories/note/">note</a><a class="category-link" href="/categories/used/">used</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+    <a href="javascript:;" target="_blank" rel="noopener" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>档案</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" target="_blank" rel="noopener" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;" target="_blank" rel="noopener">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

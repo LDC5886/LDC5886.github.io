@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>关于性能优化方案 | 看看你踩进了什么</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="个人博客,D橙的小水洼" />
+  
+  <meta name="description" content="首先，减少HTTP请求次数，比如说合并CSS和JS文件，但是也不要完全的合并在同一个文件里面，一个域名分散三四个资源，这样方便浏览器去并行下载，当然浏览器对每个域名的并行下载个数有限制，一个域名分配三四个资源虽然增加了HTTP请求数量，但是对比并行下载来说，性价比更高。 可以使用webpack使用进行减少js文件的体积，可以使用babel-plugin-import、babel-plugin-co">
+<meta name="keywords" content="optimization">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于性能优化方案">
+<meta property="og:url" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;2019&#x2F;06&#x2F;26&#x2F;%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88&#x2F;index.html">
+<meta property="og:site_name" content="看看你踩进了什么">
+<meta property="og:description" content="首先，减少HTTP请求次数，比如说合并CSS和JS文件，但是也不要完全的合并在同一个文件里面，一个域名分散三四个资源，这样方便浏览器去并行下载，当然浏览器对每个域名的并行下载个数有限制，一个域名分配三四个资源虽然增加了HTTP请求数量，但是对比并行下载来说，性价比更高。 可以使用webpack使用进行减少js文件的体积，可以使用babel-plugin-import、babel-plugin-co">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-13T14:30:01.785Z">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">D橙的小水洼</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>档案</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        D橙的小水洼
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        出于崖涘 观于大海
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="home"  href="/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LDC5886">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-关于性能优化方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      关于性能优化方案
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/note/">note</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-06-26
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>首先，减少HTTP请求次数，比如说合并CSS和JS文件，但是也不要完全的合并在同一个文件里面，一个域名分散三四个资源，这样方便浏览器去并行下载，当然浏览器对每个域名的并行下载个数有限制，一个域名分配三四个资源虽然增加了HTTP请求数量，但是对比并行下载来说，性价比更高。</p>
+<p>可以使用webpack使用进行减少js文件的体积，可以使用babel-plugin-import、babel-plugin-component、webpack.ContextReplacementPlugin、webpack.IgnorePlugin…</p>
+<a id="more"></a>
+
+
+
+<h3 id="提升Web性能的8个技巧总结"><a href="#提升Web性能的8个技巧总结" class="headerlink" title="提升Web性能的8个技巧总结"></a>提升Web性能的8个技巧总结</h3><ol>
+<li>管理“页面膨胀”</li>
+</ol>
+<p>页面大小与性能有着密切的关系。Radware 最新电商性能“行业现状”报告显示，100 强电商页面大小中位数达到了 1492KB，比一年半之前增大了 48%。</p>
+<p>在研究报告里加载最快的 10 个页面中，页面包含的资源请求中位数为 50 个，页面大小中位数为 556KB。而加载最慢的 10 个页面中，页面包含的资源请求中位数为 141 个，页面大小中位数为 3289KB。换句话说，加载最慢的页面的资源中位数几乎是加载最快的页面的三倍，页面大小则是六倍。</p>
+<p>仔细研究页面尺寸大小，我们可以得到更多的信息。加载最快的 10 个页面所包含的资源总数范围比较密集：在 15 个<del>72 个之间;页面尺寸最小的仅为 251KB，最大的 2003KB。而加载最慢的 10 个页面所包含的资源总数范围则比较广泛：在 89 个</del>373 个之间;页面尺寸最小为 2073KB，最大的则超过了 10MB。</p>
+<ol start="2">
+<li>进行图像优化</li>
+</ol>
+<p>进行图像优化是提升性能最简单的一种方法，它可以使页面加载更快。为了更有效的完成图像渲染，图像必须经过压缩和整合、图像的尺寸和格式必须经过仔细调整，图像质量也必须经过优化，这样才可以依据图像的重要性进行区别化的加载处理。</p>
+<ol start="3">
+<li>控制第三方脚本</li>
+</ol>
+<p>在典型的页面服务器请求中，来自于第三方脚本的请求占了其中的 50% 或更多。这些第三方脚本不仅会增加页面的字节数，带来延迟，而且也会成为 Web 页面中最大的潜在故障点。无响应、未经优化的第三方脚本会降低整个网络的加载速度。</p>
+<p>解决办法是延迟第三方脚本的加载，将其放在关键页面内容之后进行加载，更为理想的情况是放在页面 onLoad 事件之后加载，这样才不会影响企业的搜索排名(谷歌将 onLoad 事件作为加载时间指标)。对于一些分析工具和第三方广告商而言，如果延迟第三方脚本加载的方法不可行，可以利用脚本的异步版本，与关键内容的加载同步进行。用户必须了解网站中有哪些脚本，删除那些无用的脚本，并对第三方脚本的性能进行持续监控。</p>
+<ol start="4">
+<li>真正做到移动设备优先</li>
+</ol>
+<p>“移动设备优先”并不是一个全新的概念。早在 2013 年，移动设备的使用量就已经超过了台式机，然而与众多口头承诺的移动性能相比，真正专注于移动设备的开发还是存在一定的差距。例如，2011 年 11 月，移动设备上的平均页面大小为 475KB，现在则增长至 897 KB。也就是说，在短短三年之间，平均页面大小几乎翻了一番。</p>
+<p>尽管移动设备和网络取得了一些进展，但就性能而言，还是无法与大小已接近 1MB 的服务页面需求保持同步。我们知道，页面大小与加载时间息息相关，移动用户对缓慢的加载速度尤其敏感。如果企业希望网站可以真正做到“移动设备优先”，就必须正确处理这些问题。</p>
+<ol start="5">
+<li>在进行响应式 Web 设计时兼顾性能</li>
+</ol>
+<p>响应式设计让设计人员和开发人员可以更好地控制 Web 页面的外观和感觉。它可以使跨多平台和设备上的页面变得更漂亮。但同时也会带来巨大的性能损失，这些性能损失并不能通过更快速的浏览器、网络和小工具得到缓解。而且随着时间的推移，这样影响还将持续恶化。</p>
+<p>响应式设计建立在样式表和 JavaScript 之上。然而，低效的 CSS 和 JS 所带来的性能问题远远大于其设计优势给我们带来的好处。样式表应当放在 HEAD 文档中，用以实现页面的逐步渲染。JavaScript 文件应当放在页面底部或在关键内容加载完成之后再被加载才是合理的处理方式。</p>
+<ol start="6">
+<li>实时监控性能</li>
+</ol>
+<p>大家都知道要解决一个问题就必须先对问题有充分的了解。要解决页面性能问题，企业就必须知道用户在什么时候可以看到主要页面内容并与之进行交互;同时，企业还需了解性能和可用性问题是如何影响业务指标的。企业需要有方法获取实际的性能指标并对其进行分析。实时用户监控(RUM)工具可以从真实用户的角度实时获取、分析并记录网站的性能和可用性。</p>
+<ol start="7">
+<li>切勿过分依赖 CDN 解决所有性能问题</li>
+</ol>
+<p>Radware 季度电商性能“行业现状”报告中存在一项最具争议性的调查结果，即：使用内容分发网络(CDN)的网站完成主要内容渲染所需的时间比未曾使用 CDN 的网站要长的多。这是一个相关性问题，而非因果关系：通常情况下，相较于未使用 CDN 的网站，使用 CDN 的网站页面更大，也更复杂。页面的大小和复杂程度才是造成性能问题的元凶，而非 CDN。但这一结果也表明，仅依靠 CDN 并不能解决所有的性能难题。</p>
+<p>如果部署得当，CDN 会是解决延迟问题非常有效的工具：缩短托管服务器接收、处理并响应图像、CSS 文件等页面资源请求所需的时间。但是，延迟仅仅只是现代电商网站的关键问题之一。为了实现最佳的加速效果，网站运营人员可以采用组合解决方案：CDN+ 前端优化(如 Radware FastView 解决方案)+应用交付控制器(ADC)和内部管理。</p>
+<ol start="8">
+<li>在企业内部加强 Web 性能观念的宣传</li>
+</ol>
+<p>大量研究证明，提高页面速度可以对所有的关键性能指标产生积极影响：页面访问量、用户粘连度、业务转化率、用户满意度、客户保持、购物车的内容多少和收入。</p>
+<p>然而，正如上述 7 个建议中所表明的那样，许多企业都犯了同样的错误，最终损害了 Web 性能。目前，企业应该重点解决 Web 开发目标和在线业务目标之间的差距问题，而且，每个企业都应该至少拥有一个内部性能专家，以便更好的解决 Web 性能问题。</p>
+<h3 id="一、html方面"><a href="#一、html方面" class="headerlink" title="一、html方面"></a>一、html方面</h3><p>1.缩小favicon.ico并缓存；</p>
+<p>2.样式放在页头，JS放在页尾；</p>
+<p>3.减少DOM节点：加速页面渲染；</p>
+<p>4.用LINK而不用@import方式导入样式；</p>
+<p>5.给图片加上正确的宽高值：这可以减少页面重绘，同时防止图片缩放；</p>
+<p>6.链接为目录或首页的地址后面加”/”，如<a href="http://www.kokojia.com/；" target="_blank" rel="noopener">http://www.kokojia.com/；</a></p>
+<p>7.正确的闭合标签：如避免使用，浏览器会多一个将它解析成&lt;div\&gt;的过程；</p>
+<p>8.语义化HTML：好处在于可以使代码简洁清晰，支持不同设备，利于搜索引擎，便于团队开发；</p>
+<p>9.防止src属性和link的href属性为空：当值为空时，浏览器很可能会把当前页面当成其属性值加载。</p>
+<h3 id="二、css方面"><a href="#二、css方面" class="headerlink" title="二、css方面"></a>二、css方面</h3><p>1.删除重复的CSS；</p>
+<p>2.使用CSS缩写，减少代码量；</p>
+<p>3.避免使用CSS Filter（CSS滤镜）；</p>
+<p>4.减少查询范围：如.header&gt;li要好过.headerli；</p>
+<p>5.通过CSS Sprites把同类图片合成一张，减少图片请求；</p>
+<p>6.减少查询层级：如.header.logo要好过.header.top.logo；</p>
+<p>7.避免TAG标签与CLASS或ID并存：如a.top、button#submit；</p>
+<p>8.避免使用CSS Expressions(CSS表达式)：如background-color:expression((newDate()).getHours()%2?“#B8D4FF”:“#F08A00″)。</p>
+<h3 id="三、Javscript方面"><a href="#三、Javscript方面" class="headerlink" title="三、Javscript方面"></a>三、Javscript方面</h3><p>1.不使用EVAL；</p>
+<p>2.删除重复的JS；</p>
+<p>3.尽量少用全局变量；</p>
+<p>4.避免频繁操作DOM节点；</p>
+<p>5.使用事件代理绑定事件，如将事件绑定在body上进行代理；</p>
+<p>6.对字符串进行循环操作，譬如替换、查找，应使用正则表达式；</p>
+<p>7.减少对象查找，如a.b.c.d这种查找方式非常耗性能，尽可能把它定义在变量里；</p>
+<p>8.类型转换：把数字转换成字符串使用“+1”，浮点数转换成整型使用Math.floor()或者Math.round()。</p>
+<h3 id="四、服务器方面"><a href="#四、服务器方面" class="headerlink" title="四、服务器方面"></a>四、服务器方面</h3><p>1.使用gzip压缩内容；</p>
+<p>2.压缩CSS、JS文件，缩短文件传输时间；</p>
+<p>3.为文件头指定Expires，使内容具有缓存性。</p>
+<p>4.使用CDN加速，使用户从离自己最近的服务器下载文件；</p>
+<p>5.尽量合并CSS、JS文件，或将其直接写在页面上，减少HTTP请求；</p>
+<p>6.避免404错误：特别要避免给404指定一个停摆页面，否则所有404错误都将会加载一次页面；</p>
+<p>7.减少Cookie的大小，使用无cookie的域，客户端请求静态文件的时候，减少Cookie的反复传输对主域名的影响；</p>
+<p>8.一般要求减少DNS查询次数，如同一个页面的请求资源要尽量少的使用不同的主机名，可以减少网站并行下载的数量。但很多网站为了加速下载资源其实是特意用了多个主机名，这里要做一个权衡。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月13日 22:30</p>
+        <p>原始链接： <a class="post-url" href="/2019/06/26/%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/" title="关于性能优化方案">http://ldc5886.github.io/2019/06/26/%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/</a></p>
+        <footer>
+            <a href="http://ldc5886.github.io">
+                <img src="/images/logo.png" alt="DC">
+                DC
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" target="_blank" rel="noopener">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" target="_blank" rel="noopener" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldc5886.github.io/2019/06/26/%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/&title=《关于性能优化方案》 — 看看你踩进了什么&pic=https://ldc5886.github.io/images/note.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" target="_blank" rel="noopener" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldc5886.github.io/2019/06/26/%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/&title=《关于性能优化方案》 — 看看你踩进了什么&source=首先，减少HTTP请求次数，比如说合并CSS和JS文件，但是也不要完全的合并在同一个文件里面，一个域名分散三四个资源，这样方便浏览器去并行下载，当然浏览器..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldc5886.github.io/2019/06/26/%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于性能优化方案》 — 看看你踩进了什么&url=http://ldc5886.github.io/2019/06/26/%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/&via=http://ldc5886.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldc5886.github.io/2019/06/26/%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://ldc5886.github.io/2019/06/26/%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/optimization/" class="color3">optimization</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#提升Web性能的8个技巧总结"><span class="post-toc-text">提升Web性能的8个技巧总结</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、html方面"><span class="post-toc-text">一、html方面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、css方面"><span class="post-toc-text">二、css方面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、Javscript方面"><span class="post-toc-text">三、Javscript方面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四、服务器方面"><span class="post-toc-text">四、服务器方面</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/06/26/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          前端工程化、模块化、组件化概念
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2019/06/26/JS%20for%E5%BE%AA%E7%8E%AF%E5%86%85%E6%8A%A5%E9%94%99/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">JS for循环内报错</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 DC<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://ldc5886.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/framework/">framework</a><a class="category-link" href="/categories/note/">note</a><a class="category-link" href="/categories/used/">used</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+    <a href="javascript:;" target="_blank" rel="noopener" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>档案</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" target="_blank" rel="noopener" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;" target="_blank" rel="noopener">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>13版baidu地图APi的使用 | 看看你踩进了什么</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="个人博客,D橙的小水洼" />
+  
+  <meta name="description" content="baidu地图APi使用时的调用代码记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="13版baidu地图APi的使用">
+<meta property="og:url" content="http:&#x2F;&#x2F;ldc5886.github.io&#x2F;2019&#x2F;08&#x2F;27&#x2F;13%E7%89%88baidu%E5%9C%B0%E5%9B%BEAPi%E7%9A%84%E4%BD%BF%E7%94%A8&#x2F;index.html">
+<meta property="og:site_name" content="看看你踩进了什么">
+<meta property="og:description" content="baidu地图APi使用时的调用代码记录">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-13T14:07:28.402Z">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">D橙的小水洼</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>主页</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>档案</span>
+                    </a>
+                    
+                    <a target="_blank" href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        D橙的小水洼
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        出于崖涘 观于大海
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="home"  href="/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/LDC5886">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="暂未开通"  href="/">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-13版baidu地图APi的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      13版baidu地图APi的使用
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/note/">note</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-08-27
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>baidu地图APi使用时的调用代码记录</p>
+<a id="more"></a>
+<h3 id="设置样式，并调用相应的js文件"><a href="#设置样式，并调用相应的js文件" class="headerlink" title="设置样式，并调用相应的js文件"></a>设置样式，并调用相应的js文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">    html,body&#123;margin:0;padding:0;&#125;</span><br><span class="line">    .iw_poi_title &#123;color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap&#125;</span><br><span class="line">    .iw_poi_content &#123;font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;script type=&quot;text/javascript&quot; src=&quot;http://api.map.baidu.com/api?key=&amp;v=1.1&amp;services=true&quot;&gt;&lt;/script&gt;</code></p>
+<h3 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--百度地图容器--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"width:540px;height:278px;border:#ccc solid 1px;"</span> <span class="attr">id</span>=<span class="string">"dituContent"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="加入初始化函数"><a href="#加入初始化函数" class="headerlink" title="加入初始化函数"></a>加入初始化函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    <span class="comment">//创建和初始化地图函数：</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">initMap</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        createMap();<span class="comment">//创建地图</span></span><br><span class="line">        setMapEvent();<span class="comment">//设置地图事件</span></span><br><span class="line">        addMapControl();<span class="comment">//向地图添加控件</span></span><br><span class="line">        addMarker();<span class="comment">//向地图中添加marker</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建地图函数：</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createMap</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> map = <span class="keyword">new</span> BMap.Map(<span class="string">"dituContent"</span>);<span class="comment">//在百度地图容器中创建一个地图</span></span><br><span class="line">        <span class="keyword">var</span> point = <span class="keyword">new</span> BMap.Point(<span class="number">113.290283</span>,<span class="number">23.102333</span>);<span class="comment">//定义一个中心点坐标     （按需更改）</span></span><br><span class="line">        map.centerAndZoom(point,<span class="number">18</span>);<span class="comment">//设定地图的中心点和坐标并将地图显示在地图容器中</span></span><br><span class="line">        <span class="built_in">window</span>.map = map;<span class="comment">//将map变量存储在全局</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//地图事件设置函数：</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setMapEvent</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        map.enableDragging();<span class="comment">//启用地图拖拽事件，默认启用(可不写)</span></span><br><span class="line">        map.enableScrollWheelZoom();<span class="comment">//启用地图滚轮放大缩小</span></span><br><span class="line">        map.enableDoubleClickZoom();<span class="comment">//启用鼠标双击放大，默认启用(可不写)</span></span><br><span class="line">        map.enableKeyboard();<span class="comment">//启用键盘上下左右键移动地图</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//地图控件添加函数：</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">addMapControl</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//向地图中添加缩放控件</span></span><br><span class="line">        <span class="keyword">var</span> ctrl_nav = <span class="keyword">new</span> BMap.NavigationControl(&#123;<span class="attr">anchor</span>:BMAP_ANCHOR_TOP_LEFT,<span class="attr">type</span>:BMAP_NAVIGATION_CONTROL_LARGE&#125;);</span><br><span class="line">        map.addControl(ctrl_nav);</span><br><span class="line">        <span class="comment">//向地图中添加缩略图控件</span></span><br><span class="line">        <span class="keyword">var</span> ctrl_ove = <span class="keyword">new</span> BMap.OverviewMapControl(&#123;<span class="attr">anchor</span>:BMAP_ANCHOR_BOTTOM_RIGHT,<span class="attr">isOpen</span>:<span class="number">1</span>&#125;);</span><br><span class="line">        map.addControl(ctrl_ove);</span><br><span class="line">        <span class="comment">//向地图中添加比例尺控件</span></span><br><span class="line">        <span class="keyword">var</span> ctrl_sca = <span class="keyword">new</span> BMap.ScaleControl(&#123;<span class="attr">anchor</span>:BMAP_ANCHOR_BOTTOM_LEFT&#125;);</span><br><span class="line">        map.addControl(ctrl_sca);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//标注点数组        （同上，名称，地址，坐标点按需更改）</span></span><br><span class="line">    <span class="keyword">var</span> markerArr = [&#123;<span class="attr">title</span>:<span class="string">"广州新时代教育有限公司"</span>,<span class="attr">content</span>:<span class="string">"广州市海珠区新港西路1号（银华大厦1401）"</span>,<span class="attr">point</span>:<span class="string">"113.290283|23.102333"</span>,<span class="attr">isOpen</span>:<span class="number">1</span>,<span class="attr">icon</span>:&#123;<span class="attr">w</span>:<span class="number">21</span>,<span class="attr">h</span>:<span class="number">21</span>,<span class="attr">l</span>:<span class="number">0</span>,<span class="attr">t</span>:<span class="number">0</span>,<span class="attr">x</span>:<span class="number">6</span>,<span class="attr">lb</span>:<span class="number">5</span>&#125;&#125;</span><br><span class="line">    ];</span><br><span class="line">    <span class="comment">//创建marker</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">addMarker</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;markerArr.length;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> json = markerArr[i];</span><br><span class="line">            <span class="keyword">var</span> p0 = json.point.split(<span class="string">"|"</span>)[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">var</span> p1 = json.point.split(<span class="string">"|"</span>)[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">var</span> point = <span class="keyword">new</span> BMap.Point(p0,p1);</span><br><span class="line">            <span class="keyword">var</span> iconImg = createIcon(json.icon);</span><br><span class="line">            <span class="keyword">var</span> marker = <span class="keyword">new</span> BMap.Marker(point,&#123;<span class="attr">icon</span>:iconImg&#125;);</span><br><span class="line">            <span class="keyword">var</span> iw = createInfoWindow(i);</span><br><span class="line">            <span class="keyword">var</span> label = <span class="keyword">new</span> BMap.Label(json.title,&#123;<span class="string">"offset"</span>:<span class="keyword">new</span> BMap.Size(json.icon.lb-json.icon.x+<span class="number">10</span>,<span class="number">-20</span>)&#125;);</span><br><span class="line">            marker.setLabel(label);</span><br><span class="line">            map.addOverlay(marker);</span><br><span class="line">            label.setStyle(&#123;</span><br><span class="line">                borderColor:<span class="string">"#808080"</span>,</span><br><span class="line">                color:<span class="string">"#333"</span>,</span><br><span class="line">                cursor:<span class="string">"pointer"</span></span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">var</span> index = i;</span><br><span class="line">                <span class="keyword">var</span> _iw = createInfoWindow(i);</span><br><span class="line">                <span class="keyword">var</span> _marker = marker;</span><br><span class="line">                _marker.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                    <span class="keyword">this</span>.openInfoWindow(_iw);</span><br><span class="line">                &#125;);</span><br><span class="line">                _iw.addEventListener(<span class="string">"open"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                    _marker.getLabel().hide();</span><br><span class="line">                &#125;)</span><br><span class="line">                _iw.addEventListener(<span class="string">"close"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                    _marker.getLabel().show();</span><br><span class="line">                &#125;)</span><br><span class="line">                label.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                    _marker.openInfoWindow(_iw);</span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="keyword">if</span>(!!json.isOpen)&#123;</span><br><span class="line">                    label.hide();</span><br><span class="line">                    _marker.openInfoWindow(_iw);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建InfoWindow</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createInfoWindow</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> json = markerArr[i];</span><br><span class="line">        <span class="keyword">var</span> iw = <span class="keyword">new</span> BMap.InfoWindow(<span class="string">"&lt;b class='iw_poi_title' title='"</span> + json.title + <span class="string">"'&gt;"</span> + json.title + <span class="string">"&lt;/b&gt;&lt;div class='iw_poi_content'&gt;"</span>+json.content+<span class="string">"&lt;/div&gt;"</span>);</span><br><span class="line">        <span class="keyword">return</span> iw;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建一个Icon</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createIcon</span>(<span class="params">json</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> icon = <span class="keyword">new</span> BMap.Icon(<span class="string">"http://app.baidu.com/map/images/us_mk_icon.png"</span>, <span class="keyword">new</span> BMap.Size(json.w,json.h),&#123;<span class="attr">imageOffset</span>: <span class="keyword">new</span> BMap.Size(-json.l,-json.t),<span class="attr">infoWindowOffset</span>:<span class="keyword">new</span> BMap.Size(json.lb+<span class="number">5</span>,<span class="number">1</span>),<span class="attr">offset</span>:<span class="keyword">new</span> BMap.Size(json.x,json.h)&#125;)</span><br><span class="line">        <span class="keyword">return</span> icon;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    initMap();<span class="comment">//创建和初始化地图</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="更改坐标中心点"><a href="#更改坐标中心点" class="headerlink" title="更改坐标中心点"></a>更改坐标中心点</h3><p>进入<a href="http://api.map.baidu.com/lbsapi/creatmap/" target="_blank" rel="noopener">创建地图-百度地图生成器</a>，查找出对应地点的中心点经纬度后复制替换进上方初始化部分<strong>两处</strong>按需更改的地方即可</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月13日 22:07</p>
+        <p>原始链接： <a class="post-url" href="/2019/08/27/13%E7%89%88baidu%E5%9C%B0%E5%9B%BEAPi%E7%9A%84%E4%BD%BF%E7%94%A8/" title="13版baidu地图APi的使用">http://ldc5886.github.io/2019/08/27/13%E7%89%88baidu%E5%9C%B0%E5%9B%BEAPi%E7%9A%84%E4%BD%BF%E7%94%A8/</a></p>
+        <footer>
+            <a href="http://ldc5886.github.io">
+                <img src="/images/logo.png" alt="DC">
+                DC
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" target="_blank" rel="noopener">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" target="_blank" rel="noopener" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldc5886.github.io/2019/08/27/13%E7%89%88baidu%E5%9C%B0%E5%9B%BEAPi%E7%9A%84%E4%BD%BF%E7%94%A8/&title=《13版baidu地图APi的使用》 — 看看你踩进了什么&pic=https://ldc5886.github.io/images/note.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" target="_blank" rel="noopener" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldc5886.github.io/2019/08/27/13%E7%89%88baidu%E5%9C%B0%E5%9B%BEAPi%E7%9A%84%E4%BD%BF%E7%94%A8/&title=《13版baidu地图APi的使用》 — 看看你踩进了什么&source=baidu地图APi使用时的调用代码记录" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldc5886.github.io/2019/08/27/13%E7%89%88baidu%E5%9C%B0%E5%9B%BEAPi%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《13版baidu地图APi的使用》 — 看看你踩进了什么&url=http://ldc5886.github.io/2019/08/27/13%E7%89%88baidu%E5%9C%B0%E5%9B%BEAPi%E7%9A%84%E4%BD%BF%E7%94%A8/&via=http://ldc5886.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldc5886.github.io/2019/08/27/13%E7%89%88baidu%E5%9C%B0%E5%9B%BEAPi%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" target="_blank" rel="noopener" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://ldc5886.github.io/2019/08/27/13%E7%89%88baidu%E5%9C%B0%E5%9B%BEAPi%E7%9A%84%E4%BD%BF%E7%94%A8/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#设置样式，并调用相应的js文件"><span class="post-toc-text">设置样式，并调用相应的js文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建容器"><span class="post-toc-text">创建容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#加入初始化函数"><span class="post-toc-text">加入初始化函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更改坐标中心点"><span class="post-toc-text">更改坐标中心点</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/09/28/nodejs%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          nodejs安装以及环境配置
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2019/08/27/ER-swiper3.4%E5%9C%A8Firefox%E6%97%A0%E6%B3%95%E8%87%AA%E9%80%82%E5%BA%94/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">swiper 报错</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 DC<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://ldc5886.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/framework/">framework</a><a class="category-link" href="/categories/note/">note</a><a class="category-link" href="/categories/used/">used</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+    <a href="javascript:;" target="_blank" rel="noopener" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>主页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>档案</span>
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" href="/about">
+                    <i class="fa fa-user"></i><span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Wechat-Mini-Program/" style="font-size: 10px;">Wechat Mini Program</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/compatible/" style="font-size: 12px;">compatible</a> <a href="/tags/css/" style="font-size: 18px;">css</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/html/" style="font-size: 14px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ie/" style="font-size: 10px;">ie</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/layui/" style="font-size: 12px;">layui</a> <a href="/tags/miho/" style="font-size: 10px;">miho</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/node/" style="font-size: 12px;">node</a> <a href="/tags/optimization/" style="font-size: 12px;">optimization</a> <a href="/tags/outline/" style="font-size: 10px;">outline</a> <a href="/tags/ps/" style="font-size: 10px;">ps</a> <a href="/tags/regular/" style="font-size: 10px;">regular</a> <a href="/tags/swiper/" style="font-size: 10px;">swiper</a> <a href="/tags/uni-app/" style="font-size: 14px;">uni-app</a> <a href="/tags/vue/" style="font-size: 12px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webstrom/" style="font-size: 10px;">webstrom</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" target="_blank" rel="noopener" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;" target="_blank" rel="noopener">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
